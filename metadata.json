@@ -1,0 +1,7 @@
+{
+  "name": "Writer's Aid",
+  "description": "An application to help writers overcome writer's block by providing AI-powered editing, suggestions, and a live brainstorming partner using Gemini.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
