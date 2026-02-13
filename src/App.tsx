@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import WritingDesk from './components/WritingDesk';
 import IdeaPad from './components/IdeaPad';
+import ReviewTab from './components/ReviewTab';
 import Tabs from './components/common/Tabs';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import './App.css';
 
-type Tab = 'desk' | 'pad';
+type Tab = 'desk' | 'pad' | 'review';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('desk');
@@ -37,6 +38,7 @@ const App: React.FC = () => {
               />
             )}
             {activeTab === 'pad' && <IdeaPad />}
+            {activeTab === 'review' && <ReviewTab />}
         </main>
         
         <footer className="app-footer">

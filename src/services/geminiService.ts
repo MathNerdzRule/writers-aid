@@ -190,3 +190,75 @@ If no improvements can be suggested, return an empty array.`;
     }
 };
 
+export const reviewPassageWithGemini = async (text: string): Promise<{ feedback?: string; error?: string; }> => {
+    try {
+        const systemInstruction = `You are an expert writing reviewer. Your goal is to mimic how a reader would read and follow along with a passage.
+Analyze the provided text and provide feedback on:
+1. Flow and Transition: Do the paragraphs transition sensibly?
+2. Clarity: Can the reader follow along easily?
+3. Engagement: Would the reader be lost at any point?
+
+Provide constructive, encouraging feedback. Do not rewrite the text, only provide observations and suggestions for the author.`;
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-3-flash-preview',
+            contents: text,
+            config: {
+                systemInstruction,
+                temperature: 0.7,
+            },
+        });
+
+        return { feedback: response.text };
+    } catch (error) {
+        console.error(`Error during passage review:`, error);
+        const errorMessage = error instanceof Error ? error.message : `An unknown error occurred during passage review.`;
+        return { error: errorMessage };
+    }
+};
+
+export const processDictationWithGemini = async (audioData: string, existingText: string, mimeType: string = 'audio/wav'): Promise<{ transcribedText?: string; error?: string; }> => {
+    try {
+        const systemInstruction = `You are a professional transcription and editing assistant for a fiction writer.
+Your task is to:
+1. Transcribe the provided audio.
+2. Clean up the transcription by removing filler words like "um", "hmm", "uh", etc.
+3. Interpret the writer's intention. If they make a mistake and correct themselves (e.g., "She's driving a green... no a blue car"), transcribe only the final intended version ("She's driving a blue car").
+4. If existing text is provided, use it as context to ensure consistency in character names, setting, and tone.
+
+Return ONLY the cleaned-up, transcribed text. Do not include any meta-talk or pleasantries.`;
+
+        const contents = [
+            {
+                role: 'user',
+                parts: [
+                    {
+                        inlineData: {
+                            data: audioData,
+                            mimeType: mimeType,
+                        },
+                    },
+                    {
+                        text: existingText ? `Context (previous text): ${existingText}` : "No previous context provided."
+                    }
+                ],
+            },
+        ];
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-live-2.5-flash-native-audio',
+            contents: contents as any, // Cast due to SDK versioning/types if needed
+            config: {
+                systemInstruction,
+                temperature: 0.2,
+            },
+        });
+
+        return { transcribedText: response.text };
+    } catch (error) {
+        console.error(`Error during dictation processing:`, error);
+        const errorMessage = error instanceof Error ? error.message : `An unknown error occurred during dictation processing.`;
+        return { error: errorMessage };
+    }
+};
+

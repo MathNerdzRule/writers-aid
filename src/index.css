@@ -31,6 +31,18 @@
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
 
   --transition: all 0.2s ease;
+  /* Aliases for cleaner component code */
+  --bg-primary: var(--bg-color);
+  --bg-secondary: var(--surface-color);
+  --text-primary: var(--text-main);
+  --text-secondary: var(--text-muted);
+  --accent-primary: var(--primary);
+}
+
+.app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 [data-theme="dark"] {
