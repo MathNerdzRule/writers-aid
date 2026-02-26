@@ -104,7 +104,7 @@ const IdeaPad: React.FC = () => {
             const sources = new Set<AudioBufferSourceNode>();
 
             sessionPromiseRef.current = ai.live.connect({
-                model: 'gemini-live-2.5-flash-native-audio',
+                model: 'gemini-2.5-flash-native-audio-latest',
                 config: {
                     responseModalities: [Modality.AUDIO],
                     inputAudioTranscription: {},
