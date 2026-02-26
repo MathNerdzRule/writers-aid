@@ -9,7 +9,7 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
-export const generateWithGemini = async (model: 'gemini-flash-latest', prompt: string): Promise<string> => {
+export const generateWithGemini = async (model: 'gemini-3-flash-preview', prompt: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
             model,
@@ -58,7 +58,7 @@ export const generateLookupWithGemini = async (word: string, type: 'synonyms' | 
         }
         
         const response = await ai.models.generateContent({
-            model: 'gemini-flash-latest',
+            model: 'gemini-3-flash-preview',
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
@@ -118,7 +118,7 @@ If no errors are found, return an empty array.`;
         };
 
         const response = await ai.models.generateContent({
-            model: 'gemini-flash-latest',
+            model: 'gemini-3-flash-preview',
             contents: text,
             config: {
                 systemInstruction,
@@ -169,7 +169,7 @@ If no improvements can be suggested, return an empty array.`;
         };
 
         const response = await ai.models.generateContent({
-            model: 'gemini-flash-latest',
+            model: 'gemini-3-flash-preview',
             contents: text,
             config: {
                 systemInstruction,
@@ -201,7 +201,7 @@ Analyze the provided text and provide feedback on:
 Provide constructive, encouraging feedback. Do not rewrite the text, only provide observations and suggestions for the author.`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-flash-latest',
+            model: 'gemini-3-flash-preview',
             contents: text,
             config: {
                 systemInstruction,
@@ -246,7 +246,7 @@ Return ONLY the cleaned-up, transcribed text. Do not include any meta-talk or pl
         ];
 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-native-audio-latest',
+            model: 'gemini-live-2.5-flash-native-audio',
             contents: contents as any, // Cast due to SDK versioning/types if needed
             config: {
                 systemInstruction,
