@@ -9,7 +9,7 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
-export const generateWithGemini = async (model: 'gemini-3-flash-latest', prompt: string): Promise<string> => {
+export const generateWithGemini = async (model: 'gemini-flash-latest', prompt: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
             model,
@@ -58,7 +58,7 @@ export const generateLookupWithGemini = async (word: string, type: 'synonyms' | 
         }
         
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash-latest',
+            model: 'gemini-flash-latest',
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
@@ -118,7 +118,7 @@ If no errors are found, return an empty array.`;
         };
 
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash-latest',
+            model: 'gemini-flash-latest',
             contents: text,
             config: {
                 systemInstruction,
@@ -169,7 +169,7 @@ If no improvements can be suggested, return an empty array.`;
         };
 
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash-latest',
+            model: 'gemini-flash-latest',
             contents: text,
             config: {
                 systemInstruction,
@@ -201,7 +201,7 @@ Analyze the provided text and provide feedback on:
 Provide constructive, encouraging feedback. Do not rewrite the text, only provide observations and suggestions for the author.`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash-latest',
+            model: 'gemini-flash-latest',
             contents: text,
             config: {
                 systemInstruction,

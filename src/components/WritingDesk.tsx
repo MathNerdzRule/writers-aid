@@ -81,7 +81,7 @@ const WritingDesk: React.FC<WritingDeskProps> = ({ text, setText, result, setRes
     setShowSuggestionPanel(false);
 
     let prompt = '';
-    const model = 'gemini-3-flash-latest';
+    const model = 'gemini-flash-latest';
 
     switch (task) {
       case 'rephrase':
